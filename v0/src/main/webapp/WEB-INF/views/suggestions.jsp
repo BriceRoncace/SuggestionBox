@@ -28,7 +28,7 @@
         </c:if>
           
         <br/>
-        <small class="font-italic">Suggested by ${suggestion.author != null ? suggestion.author.fullName : 'anonymous'} on ${suggestion.created}</small>
+        <small class="font-italic">Suggested by ${suggestion.author != null ? suggestion.author.fullName : 'anonymous'} on ${dateFormatter.format(suggestion.created)}</small>
       </div>
     </c:forEach>
     

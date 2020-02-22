@@ -62,7 +62,7 @@
         </div>
         <div class="form-group col-md-6">
           <label for="posted">Posted</label>
-          <input type="text" class="form-control" id="posted" name="videoDetails.posted" value="${suggestion.videoDetails.posted}" />
+          <input type="text" class="form-control" id="posted" name="videoDetails.posted" value="${dateFormatter.format(suggestion.videoDetails.posted)}" />
         </div>
       </div>   
         

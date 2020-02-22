@@ -1,9 +1,11 @@
 package gov.idaho.isp.suggestion;
 
+import gov.idaho.isp.suggestion.controller.interceptor.DateFormatInterceptor;
 import gov.idaho.isp.suggestion.controller.interceptor.ProfileInterceptor;
 import gov.idaho.isp.suggestion.controller.interceptor.UserInterceptor;
 import java.util.List;
 import org.h2.server.web.WebServlet;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -17,9 +19,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
   private final Environment environment;
+  private final String dateFormat;
 
-  public WebConfig(Environment environment) {
+  public WebConfig(Environment environment, @Value("${date.format.print:MM/dd/yyyy}") String dateFormat) {
     this.environment = environment;
+    this.dateFormat = dateFormat;
   }
 
   @Override
@@ -31,6 +35,7 @@ public class WebConfig implements WebMvcConfigurer {
   public void addInterceptors(InterceptorRegistry registry) {
     registry.addInterceptor(new UserInterceptor());
     registry.addInterceptor(new ProfileInterceptor(environment));
+    registry.addInterceptor(new DateFormatInterceptor(dateFormat));
   }
   
   @Bean
