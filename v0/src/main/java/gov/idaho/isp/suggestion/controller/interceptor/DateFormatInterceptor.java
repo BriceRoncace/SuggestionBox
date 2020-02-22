@@ -1,7 +1,6 @@
 package gov.idaho.isp.suggestion.controller.interceptor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,9 +16,7 @@ public class DateFormatInterceptor extends HandlerInterceptorAdapter {
 
   @Override
   public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws Exception {
-    req.setAttribute("dateFormat", dateFormat);
     req.setAttribute("dateFormatter", new NullSafeLocalDateFormatter(DateTimeFormatter.ofPattern(dateFormat)));
-    req.setAttribute("currentDate", LocalDate.now());
     return true;
   }
 
@@ -36,18 +33,6 @@ public class DateFormatInterceptor extends HandlerInterceptorAdapter {
 
     public String format(LocalDate ld) {
       return ld != null ? formatter.format(ld) : "";
-    }
-  }
-
-  public class NullSafeLocalDateTimeFormatter {
-    private final DateTimeFormatter formatter;
-
-    public NullSafeLocalDateTimeFormatter(DateTimeFormatter formatter) {
-      this.formatter = formatter;
-    }
-
-    public String format(LocalDateTime ldt) {
-      return ldt != null ? formatter.format(ldt) : "";
     }
   }
 }

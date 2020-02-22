@@ -32,10 +32,9 @@ public class Suggestion implements Serializable {
   private String url;
   
   @OneToOne(cascade = CascadeType.ALL)
-  private VideoDetails videoDetails;
+  private VideoDetails videoDetails = new VideoDetails();
  
-   @ElementCollection // 1
-//    @CollectionTable(name = "my_list", joinColumns = @JoinColumn(name = "id")) // 2
+  @ElementCollection
   @Column(name = "tag")
   private List<String> tags = new ArrayList<>();
 

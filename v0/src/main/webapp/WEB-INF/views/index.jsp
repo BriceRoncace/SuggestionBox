@@ -14,7 +14,6 @@
           
     <hr/>
     <h3>Todo</h3>
-    * Create jQuery plugin to capture/display video duration in hours minutes and seconds and convert to seconds<br/>
     * Add "Suggest" button to front page to randomly select a suggestion<br/>
     * Add Suggestion advanced search to refine how selection occurs<br/>
     * Add Suggestion history to store when suggestion was suggested<br/>

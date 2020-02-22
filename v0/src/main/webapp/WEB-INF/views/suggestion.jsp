@@ -48,38 +48,51 @@
         </div>
       </div>
       
-      <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" id="videoCheckbox">
-        <label class="form-check-label" for="videoCheckbox">
-          Video?
-        </label>
-      </div>
-        
-      <div id="videoDetails" class="form-row d-none">
+      <c:if test="${suggestion.videoDetails.isEmpty()}">
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" id="videoCheckbox" onclick="$('#videoDetails').toggleClass('d-none', $(this).not(':checked'))">
+          <label class="form-check-label" for="videoCheckbox">
+            Video?
+          </label>
+        </div>
+      </c:if>
+       
+      <div id="videoDetails" class="form-row ${suggestion.videoDetails.isEmpty() ? 'd-none' : ''}">
         <div class="form-group col-md-6">
           <label for="seconds">Length</label>
           <input type="text" class="form-control" id="seconds" name="videoDetails.seconds" value="${suggestion.videoDetails.seconds}" />
+          
+          <%--
+          <div class="input-group">
+    <input type="text" class="form-control" placeholder="hours">
+  <div class="input-group-append">
+  <span class="input-group-text">:</span>
+  </div>
+  <input type="text" class="form-control" placeholder="minutes">
+  <div class="input-group-append">
+  <span class="input-group-text">:</span>
+  </div>
+  <input type="text" class="form-control" placeholder="seconds">
+</div>--%>
+          
         </div>
         <div class="form-group col-md-6">
           <label for="posted">Posted</label>
-          <input type="text" class="form-control" id="posted" name="videoDetails.posted" value="${dateFormatter.format(suggestion.videoDetails.posted)}" />
+          <input type="date" class="form-control" id="posted" name="videoDetails.posted" value="${suggestion.videoDetails.posted}"/>
         </div>
       </div>   
         
       <button type="submit" class="btn btn-primary">Submit</button>  
     </form>
   
-        
   </jsp:attribute>
   <jsp:attribute name="javascript">
     <script type="text/javascript" src="<c:url value="/assets/js/tagify.jquery.js"/>"></script>
+    <script type="text/javascript" src="<c:url value="/assets/js/duration.jquery.js"/>"></script>
     <script>
       $(function() {
         $('#tags').tagify();
-        
-        $("#videoCheckbox").click(function() {
-          $("#videoDetails").toggleClass("d-none", $(this).not(":checked"));
-        });
+        $('#seconds').duration();
       });
     </script>
   </jsp:attribute>
