@@ -36,7 +36,7 @@
       <div class="form-row">
         <div class="form-group col-md-12">
           <label for="tags">Tags</label>
-          <input type="input" class="form-control" id="tags" data-tags='<t:toJson value="${suggestion.tags}"/>' />
+          <input type="input" class="form-control" data-provide="tagify" id="tags" data-tags='<t:toJson value="${suggestion.tags}"/>' />
           <input type="hidden" name="tags" />
         </div>
       </div>
@@ -60,21 +60,7 @@
       <div id="videoDetails" class="form-row ${suggestion.videoDetails.isEmpty() ? 'd-none' : ''}">
         <div class="form-group col-md-6">
           <label for="seconds">Length</label>
-          <input type="text" class="form-control" id="seconds" name="videoDetails.seconds" value="${suggestion.videoDetails.seconds}" />
-          
-          <%--
-          <div class="input-group">
-    <input type="text" class="form-control" placeholder="hours">
-  <div class="input-group-append">
-  <span class="input-group-text">:</span>
-  </div>
-  <input type="text" class="form-control" placeholder="minutes">
-  <div class="input-group-append">
-  <span class="input-group-text">:</span>
-  </div>
-  <input type="text" class="form-control" placeholder="seconds">
-</div>--%>
-          
+          <input type="text" class="form-control" data-provide="duration" id="seconds" name="videoDetails.seconds" value="${suggestion.videoDetails.seconds}" />
         </div>
         <div class="form-group col-md-6">
           <label for="posted">Posted</label>
@@ -91,8 +77,6 @@
     <script type="text/javascript" src="<c:url value="/assets/js/duration.jquery.js"/>"></script>
     <script>
       $(function() {
-        $('#tags').tagify();
-        $('#seconds').duration();
       });
     </script>
   </jsp:attribute>

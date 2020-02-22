@@ -1,5 +1,7 @@
 (function ($) {
-   
+  
+ 
+  
   $.fn.duration = function() {
    return this.each(function() {
      createDurationInput($(this));
@@ -54,4 +56,8 @@
       $el.val(totalSeconds === 0 ? '' : totalSeconds);
     }
   }
+  
+  // by default apply plugin to elements having data-provider=duration 
+  $('[data-provide="duration"]').duration();
+  
 }(jQuery));

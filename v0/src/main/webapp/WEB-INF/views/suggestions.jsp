@@ -24,7 +24,7 @@
         
         <c:if test="${!empty suggestion.tags}">
           <br/>         
-          <span data-tags='<t:toJson value="${suggestion.tags}"/>'></span>
+          <span data-provide="tagify" data-tagify-allow-removal="false" data-tags='<t:toJson value="${suggestion.tags}"/>'></span>
         </c:if>
           
         <br/>
@@ -34,13 +34,9 @@
     
   </jsp:attribute>
   <jsp:attribute name="javascript">
-<!--    <script type="text/javascript" src="<c:url value="/assets/js/cjis.index.js"/>"></script>-->
     <script type="text/javascript" src="<c:url value="/assets/js/tagify.jquery.js"/>"></script>
     <script>
       $(function() {
-        $('[data-tags]').tagify({allowRemoval:false});
-        
-        //cjis.index.init();
       });
     </script>
   </jsp:attribute>

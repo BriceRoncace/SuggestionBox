@@ -41,4 +41,14 @@
       return $(`<span class="small ${settings.tagClass}">${name}<input type="hidden" value="${name}" name="tags"/></span>`);
     }
   }
+  
+  // by default apply plugin to elements having data-provider=tagify 
+  $('[data-provide="tagify"]').each(function(i, el) {
+    var $this = $(this);
+    var allowRemoval = $this.data('tagify-allow-removal');
+    $this.tagify({
+      allowRemoval: (allowRemoval !== undefined ? allowRemoval : true)
+    });
+  });
+  
 }(jQuery));
