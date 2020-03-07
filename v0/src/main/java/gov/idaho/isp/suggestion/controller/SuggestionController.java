@@ -3,6 +3,7 @@ package gov.idaho.isp.suggestion.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import gov.idaho.isp.suggestion.domain.Suggestion;
 import gov.idaho.isp.suggestion.domain.SuggestionRepository;
+import gov.idaho.isp.suggestion.domain.SuggestionSpec;
 import gov.idaho.isp.suggestion.user.User;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
@@ -40,8 +41,8 @@ public class SuggestionController {
   }
   
   @GetMapping("/suggestions")
-  public String list(Model m) {
-    m.addAttribute("suggestions", suggestionRepository.findAll());
+  public String search(SuggestionSpec spec, Model m) {
+    m.addAttribute("suggestions", suggestionRepository.findAll(spec));
     return "suggestions";
   }
   

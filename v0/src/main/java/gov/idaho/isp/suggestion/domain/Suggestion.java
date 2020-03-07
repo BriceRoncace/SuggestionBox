@@ -11,7 +11,9 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -32,11 +34,15 @@ public class Suggestion implements Serializable {
   private String url;
   
   @OneToOne(cascade = CascadeType.ALL)
-  private VideoDetails videoDetails = new VideoDetails();
+  private VideoDetails videoDetails;
  
   @ElementCollection
   @Column(name = "tag")
   private List<String> tags = new ArrayList<>();
+  
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name = "suggestionId")
+  private List<SuggestionHistory> history = new ArrayList<>();
 
   public Suggestion() {
   }
@@ -101,6 +107,10 @@ public class Suggestion implements Serializable {
   public void setVideoDetails(VideoDetails videoDetails) {
     this.videoDetails = videoDetails;
   }
+  
+  public boolean isVideo() {
+    return videoDetails != null && !videoDetails.isEmpty();
+  }
 
   public List<String> getTags() {
     return tags;
@@ -108,6 +118,14 @@ public class Suggestion implements Serializable {
 
   public void setTags(List<String> tags) {
     this.tags = tags;
+  }
+
+  public List<SuggestionHistory> getHistory() {
+    return history;
+  }
+
+  public void setHistory(List<SuggestionHistory> history) {
+    this.history = history;
   }
   
   @Override

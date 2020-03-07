@@ -48,7 +48,7 @@
         </div>
       </div>
       
-      <c:if test="${suggestion.videoDetails.isEmpty()}">
+      <c:if test="${!suggestion.video}">
         <div class="form-check mb-3">
           <input class="form-check-input" type="checkbox" id="videoCheckbox" onclick="$('#videoDetails').toggleClass('d-none', $(this).not(':checked'))">
           <label class="form-check-label" for="videoCheckbox">
@@ -57,7 +57,7 @@
         </div>
       </c:if>
        
-      <div id="videoDetails" class="form-row ${suggestion.videoDetails.isEmpty() ? 'd-none' : ''}">
+      <div id="videoDetails" class="form-row ${suggestion.video ? '' : 'd-none'}">
         <div class="form-group col-md-6">
           <label for="seconds">Length</label>
           <input type="text" class="form-control" data-provide="duration" id="seconds" name="videoDetails.seconds" value="${suggestion.videoDetails.seconds}" />

@@ -14,11 +14,15 @@
     </span>
       
     <h2 class="border-bottom mb-3 pb-2">Suggestions</h2>
+    
+    
+   
+    
        
     <c:forEach var="suggestion" items="${suggestions}">
       <div class="border-bottom mb-2 pb-2">
         <a href="<c:url value="/suggestions/${suggestion.id}"/>" class="h5">${suggestion.title}</a>
-        <c:if test="${suggestion.videoDetails != null && !suggestion.videoDetails.isEmpty()}">
+        <c:if test="${suggestion.video}">
           <i class="fas fa-video"></i>
         </c:if>
         
