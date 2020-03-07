@@ -15,7 +15,7 @@
     <title><c:choose><c:when test="${title == null}">Suggestion Box</c:when><c:otherwise><jsp:invoke fragment="title" /></c:otherwise></c:choose></title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha256-L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />      <link rel="stylesheet" type="text/css" href='<c:url value="/assets/css/style.css"/>' />
-
+    <link rel="stylesheet" href="<c:url value="/assets/css/style.css"/>" />
     <jsp:invoke fragment="head" />
   </head>
   <body style="padding-top: 70px;">

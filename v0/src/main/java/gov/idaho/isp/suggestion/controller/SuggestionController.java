@@ -1,6 +1,7 @@
 package gov.idaho.isp.suggestion.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import gov.idaho.isp.suggestion.domain.Suggester;
 import gov.idaho.isp.suggestion.domain.Suggestion;
 import gov.idaho.isp.suggestion.domain.SuggestionRepository;
 import gov.idaho.isp.suggestion.domain.SuggestionSpec;
@@ -19,9 +20,11 @@ import org.springframework.web.bind.annotation.RequestAttribute;
 @Controller
 public class SuggestionController {
   private final SuggestionRepository suggestionRepository;
+  private final Suggester suggester;
 
-  public SuggestionController(SuggestionRepository suggestionRepository) {
+  public SuggestionController(SuggestionRepository suggestionRepository, Suggester suggester) {
     this.suggestionRepository = suggestionRepository;
+    this.suggester = suggester;
   }
   
   @ModelAttribute
@@ -44,6 +47,12 @@ public class SuggestionController {
   public String search(SuggestionSpec spec, Model m) {
     m.addAttribute("suggestions", suggestionRepository.findAll(spec));
     return "suggestions";
+  }
+  
+  @PostMapping("/suggest")
+  public String suggest(SuggestionSpec spec, Model m) {
+    m.addAttribute("suggestion", suggester.suggest(spec));
+    return "suggestion";
   }
   
   @PostMapping({"/suggestions", "/suggestions/{id}"})

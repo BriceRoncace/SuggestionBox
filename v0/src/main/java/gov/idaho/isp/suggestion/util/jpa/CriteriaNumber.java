@@ -121,7 +121,6 @@ public class CriteriaNumber {
     return number1;
   }
 
-
   public void setNumber1(Number number1) {
     this.number1 = number1;
   }
@@ -150,16 +149,13 @@ public class CriteriaNumber {
     this.numberFormatter = numberFormatter;
   }
 
-  
   public boolean isBuildable() {
     return searchType != null && searchType.isBuildable(number1, number2);
   }
 
-  
   public Predicate constructPredicate(CriteriaBuilder cb, Expression exp) {
     return searchType.build(cb, exp, number1, number2);
   }
-
   
   public String getDescription() {
     return searchType.getDescription(numberFormatter, number1, number2);

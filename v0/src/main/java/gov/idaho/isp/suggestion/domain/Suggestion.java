@@ -34,7 +34,7 @@ public class Suggestion implements Serializable {
   private String url;
   
   @OneToOne(cascade = CascadeType.ALL)
-  private VideoDetails videoDetails;
+  private VideoDetails videoDetails = new VideoDetails();
  
   @ElementCollection
   @Column(name = "tag")
