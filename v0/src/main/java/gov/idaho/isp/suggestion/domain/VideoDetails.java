@@ -1,6 +1,7 @@
 package gov.idaho.isp.suggestion.domain;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.time.LocalDate;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,17 @@ public class VideoDetails implements Serializable {
 
   public void setSeconds(Integer seconds) {
     this.seconds = seconds;
+  }
+  
+  public String getDurationPrettyPrint() {
+    Duration d = Duration.ofSeconds(seconds);
+    StringBuilder sb = new StringBuilder();
+    int hours = d.toHoursPart();
+    if (hours > 0) {
+      sb.append(hours).append(":");
+    }
+    sb.append(d.toMinutesPart()).append(":").append(d.toSecondsPart());
+    return sb.toString();
   }
   
   public boolean isEmpty() {

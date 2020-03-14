@@ -1,15 +1,33 @@
- /* Style the video: 100% width and height to cover the entire window */
-#video {
-/*  position: fixed;*/
-/*  right: 100px;
-  bottom: 0;*/
- 
+/* Style the video: 100% width and height to cover the entire window */
+#indexVideo {
+  /*  position: fixed;*/
+  /*  right: 100px;
+    bottom: 0;*/
+
   min-width: 70%;
   min-height: 50%;
   margin-left: 15%;
-  
-  
-  
+}
+
+.index-body {
+  background-color:#000;
+}
+
+.pager-arrow {
+  font-size: 1.5em; 
+  vertical-align: sub;
+}
+
+.pager-arrow-disabled {
+  color: #ccc !important;
+  font-size: 1.5em; 
+  vertical-align: bottom;
+  text-decoration: none;
+}
+
+.btn-xs {
+  padding: 0 4px;
+  font-size: 65%;
 }
 
 /* Add some content at the bottom of the video/page */

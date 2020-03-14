@@ -6,6 +6,7 @@
 <%@attribute name="head" fragment="true" %>
 <%@attribute name="body" fragment="true" %>
 <%@attribute name="javascript" fragment="true" %>
+<%@attribute name="bodyClass" %>
 
 <!DOCTYPE html>
 <html>
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="<c:url value="/assets/css/style.css"/>" />
     <jsp:invoke fragment="head" />
   </head>
-  <body style="padding-top: 70px;">
+  <body style="padding-top: 70px;" class="${bodyClass}">
     <div class="container-fluid">
 
       <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
@@ -74,7 +75,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.slim.min.js" integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha256-OUFW7hFO0/r5aEGTQOz9F/aXQOt+TwqI1Z4fbVvww04=" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="<c:url value="/assets/js/cjis.js"/>"></script>
     <jsp:invoke fragment="javascript" />
   </body>
 </html>

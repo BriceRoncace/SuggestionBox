@@ -8,6 +8,8 @@ import gov.idaho.isp.suggestion.domain.SuggestionSpec;
 import gov.idaho.isp.suggestion.user.User;
 import java.util.Optional;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SuggestionController {
@@ -45,22 +46,32 @@ public class SuggestionController {
   }
   
   @GetMapping("/suggestions")
-  public String search(SuggestionSpec spec, Model m) {
-    m.addAttribute("suggestions", suggestionRepository.findAll(spec));
+  public String search(SuggestionSpec spec, @PageableDefault(size = 25) Pageable pageable, Model m) {
+    m.addAttribute("page", suggestionRepository.findAll(spec, pageable));
+    m.addAttribute("spec", spec);
+    m.addAttribute("tags", suggestionRepository.findAllTags());
     return "suggestions";
   }
   
   @PostMapping("/suggest")
-  public String suggest(SuggestionSpec spec, @RequestAttribute Optional<User> user, RedirectAttributes ra, Model m) {
+  public String suggest(SuggestionSpec spec, @RequestAttribute Optional<User> user, Model m) {
     Optional<Suggestion> s = suggester.suggest(spec, user);
     if (s.isPresent()) {
       m.addAttribute("suggestion", s.get());
       return "suggestion";
     }
     else {
-      ra.addFlashAttribute("errors", "No suggestions could be found matching the provided criteria.");
-      return "redirect:/suggestions";
+      m.addAttribute("errors", "No suggestions could be found matching the provided criteria.");
+      m.addAttribute("spec", spec);
+      return "suggestions";
     }
+  }
+  
+  @PostMapping("/suggestions/{id}/clearHistory")
+  public String clearHistory(@ModelAttribute Suggestion suggestion, Model m) {
+    suggestion.getHistory().clear();
+    suggestionRepository.save(suggestion);
+    return "redirect:/suggestions/" + suggestion.getId();
   }
   
   @PostMapping({"/suggestions", "/suggestions/{id}"})

@@ -13,13 +13,13 @@
     
     var $group = $('<div class="input-group"></div>');
     var $sep = $('<div class="input-group-append"><span class="input-group-text">:</span></div>');
-    var $hours = $('<input type="text" class="form-control" placeholder="hours"></input>');
+    var $hours = $('<input type="text" class="form-control" placeholder="hh"></input>');
     $hours.change(calcDuration);
     
-    var $mins = $('<input type="text" class="form-control" placeholder="minutes"></input>');
+    var $mins = $('<input type="text" class="form-control" placeholder="mm"></input>');
     $mins.change(calcDuration);
     
-    var $secs = $('<input type="text" class="form-control" placeholder="seconds"></input>');
+    var $secs = $('<input type="text" class="form-control" placeholder="ss"></input>');
     $secs.change(calcDuration);
     
     displayDuration($el.val());
