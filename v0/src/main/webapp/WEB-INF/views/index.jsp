@@ -1,6 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <t:page>
   <jsp:attribute name="body">
 
@@ -18,14 +19,13 @@
         <br>
         <form action="<c:url value="/suggest"/>" method="POST">
           <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+          <input type="hidden" name="unsuggested" value="true"/>
           <button class="btn btn-lg btn-primary">Suggest</button>
         </form>
       </div>
-
+          
       <h3>Todo</h3>
-      * Add "Suggest" button to front page to randomly select a suggestion<br/>
       * Add Suggestion advanced search to refine how selection occurs<br/>
-      * Add Suggestion history to store when suggestion was suggested<br/>
       * Add review to allow users to review a suggestion and give their feedback<br/>
     </div>
   </jsp:attribute>

@@ -17,7 +17,7 @@
       </form>
     </c:if>
     
-    <h2 class="border-bottom pb-2 mb-3">Suggestion</h2>
+    <h2 class="border-bottom pb-2 mb-3">Suggestion <small><t:history-tooltip suggestion="${suggestion}" cssClass="small"/></small></h2>
     
     <form action="<c:url value="/suggestions/${suggestion.id}"/>" method="POST">
       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -77,6 +77,7 @@
     <script type="text/javascript" src="<c:url value="/assets/js/duration.jquery.js"/>"></script>
     <script>
       $(function() {
+        $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
   </jsp:attribute>

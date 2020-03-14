@@ -42,7 +42,7 @@ public class SuggestionSpec implements Specification<Suggestion> {
     }
     
     if (unsuggested) {
-      predicates.add(cb.isNotNull(root.join(Suggestion_.history)));
+      predicates.add(cb.isEmpty(root.get(Suggestion_.history)));
     }
     
     if (tags != null && !tags.isEmpty()) {

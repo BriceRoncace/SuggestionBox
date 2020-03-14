@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class SuggestionController {
@@ -50,9 +51,16 @@ public class SuggestionController {
   }
   
   @PostMapping("/suggest")
-  public String suggest(SuggestionSpec spec, Model m) {
-    m.addAttribute("suggestion", suggester.suggest(spec));
-    return "suggestion";
+  public String suggest(SuggestionSpec spec, @RequestAttribute Optional<User> user, RedirectAttributes ra, Model m) {
+    Optional<Suggestion> s = suggester.suggest(spec, user);
+    if (s.isPresent()) {
+      m.addAttribute("suggestion", s.get());
+      return "suggestion";
+    }
+    else {
+      ra.addFlashAttribute("errors", "No suggestions could be found matching the provided criteria.");
+      return "redirect:/suggestions";
+    }
   }
   
   @PostMapping({"/suggestions", "/suggestions/{id}"})
