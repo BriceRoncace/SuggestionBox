@@ -60,7 +60,64 @@
       <artifactId>commons-lang3</artifactId>
     </dependency>
   </dependencies>
-    
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
+        <executions>
+          <execution>
+            <id>tomcat-install-prep</id>
+            <phase>install</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <exportAntProperties>true</exportAntProperties>
+              <target>
+                <condition property="war.ready.for.deployment">
+                  <and>
+                    <equals arg1="${project.packaging}" arg2="war"/>
+                    <isset property="tomcat.deploy.url"/>
+                  </and>
+                </condition>
+              </target>
+            </configuration>
+          </execution>
+          <execution>
+            <id>tomcat-install</id>
+            <phase>install</phase>
+            <goals>
+              <goal>run</goal>
+            </goals>
+            <configuration>
+              <target if="war.ready.for.deployment">
+                <taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask"/>
+                <echo message="Deploying ${project.build.finalName}.${project.packaging} (context ${tomcat.deploy.path}) to ${tomcat.deploy.message}"/>
+                <deploy 
+                  path="/${tomcat.deploy.path}" 
+                  url="${tomcat.deploy.url}" 
+                  username="${tomcat.deploy.username}" 
+                  password="${tomcat.deploy.password}"
+                  war="file:${project.build.directory}/${project.build.finalName}.${project.packaging}" 
+                  update="true"/>
+              </target>
+            </configuration>
+          </execution>
+        </executions>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina-ant</artifactId>
+            <version>8.0.36</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+  
   <profiles>
     <profile>
       <id>dev</id>
@@ -87,6 +144,11 @@
       <properties>
         <activatedProperties>prod</activatedProperties>
         <packaging.type>war</packaging.type>
+        <tomcat.deploy.message>Sandbox Tomcat 9 Server</tomcat.deploy.message>
+        <tomcat.deploy.url>http://dev-sandbox:8080/manager/text</tomcat.deploy.url>
+        <tomcat.deploy.username>tomcat</tomcat.deploy.username>
+        <tomcat.deploy.password>tomcat</tomcat.deploy.password>
+        <tomcat.deploy.path>${project.name}</tomcat.deploy.path>
       </properties>
       <dependencies>
         <dependency>

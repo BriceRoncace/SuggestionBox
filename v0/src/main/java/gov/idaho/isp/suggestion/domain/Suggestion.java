@@ -31,6 +31,7 @@ public class Suggestion implements Serializable {
   @NotBlank(message = "Title required.")
   private String title;
   
+  @Column(length = 2000)
   private String details;
   
   private String url;

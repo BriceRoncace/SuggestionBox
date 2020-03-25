@@ -27,10 +27,19 @@ public class SecurityProdConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
       .antMatchers("/assets/**").permitAll()
+      .antMatchers("/h2-console/**").permitAll()
+      .antMatchers("/**").permitAll()
       .anyRequest().authenticated()
       .and().formLogin().loginPage("/login").permitAll()
       .and().logout().logoutUrl("/logout").permitAll()
       .and().exceptionHandling().accessDeniedHandler(getAccessDeniedHandler());
+
+    allowAdminAccessToH2Console(http);
+  }
+
+  private void allowAdminAccessToH2Console(HttpSecurity http) throws Exception {
+    http.csrf().ignoringAntMatchers("/h2-console/**");
+    http.headers().frameOptions().disable();
   }
 
   @Override
