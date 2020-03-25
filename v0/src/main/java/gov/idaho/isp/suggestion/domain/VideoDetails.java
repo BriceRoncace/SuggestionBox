@@ -46,7 +46,19 @@ public class VideoDetails implements Serializable {
     if (hours > 0) {
       sb.append(hours).append(":");
     }
-    sb.append(d.toMinutesPart()).append(":").append(d.toSecondsPart());
+    
+    int mins = d.toMinutesPart();
+    if (mins < 10) {
+      sb.append("0");
+    }
+    sb.append(mins).append(":");
+    
+    int secs = d.toSecondsPart();
+    if (secs < 10) {
+      sb.append("0");
+    }
+    sb.append(secs);
+    
     return sb.toString();
   }
   

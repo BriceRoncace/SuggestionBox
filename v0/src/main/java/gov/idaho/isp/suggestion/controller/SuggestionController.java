@@ -7,11 +7,14 @@ import gov.idaho.isp.suggestion.domain.SuggestionRepository;
 import gov.idaho.isp.suggestion.domain.SuggestionSpec;
 import gov.idaho.isp.suggestion.user.User;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import javax.validation.Valid;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,7 +39,17 @@ public class SuggestionController {
   
   @GetMapping("/suggestions/new")
   public String forwardToSetup(Model m) {
-    return "suggestion";
+    return "suggestion-edit";
+  }
+  
+  @GetMapping("/suggestions/{id}/edit")
+  public String edit(Suggestion suggestion, @RequestAttribute Optional<User> user, Model m) throws JsonProcessingException {
+    if (suggestion.getAuthor() == null || suggestion.getAuthor() != null && suggestion.getAuthor().equals(user.orElse(null))) {
+      m.addAttribute(suggestion);
+      return "suggestion-edit";
+    }
+    
+    return "redirect:/suggestions/" + suggestion.getId();
   }
   
   @GetMapping("/suggestions/{id}")
@@ -75,7 +88,11 @@ public class SuggestionController {
   }
   
   @PostMapping({"/suggestions", "/suggestions/{id}"})
-  public String save(@ModelAttribute Suggestion suggestion, Model m) {
+  public String save(@Valid @ModelAttribute Suggestion suggestion, BindingResult br, Model m) {
+    if (br.hasErrors()) {
+      m.addAttribute("errors", br.getAllErrors().stream().map(oe -> oe.getDefaultMessage()).collect(Collectors.toList()));
+      return "suggestion-edit";
+    }
     suggestionRepository.save(removeBlankTags(suggestion));
     m.addAttribute("messages", "Suggestion saved.");
     return "redirect:/suggestions";

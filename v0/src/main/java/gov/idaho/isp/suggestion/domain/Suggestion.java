@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 public class Suggestion implements Serializable {
@@ -27,6 +28,7 @@ public class Suggestion implements Serializable {
   
   private LocalDate created;
   
+  @NotBlank(message = "Title required.")
   private String title;
   
   private String details;

@@ -71,9 +71,11 @@
             </div>
 
             <div class="form-group col-lg-2 p-1 text-center">
-              <a href="<c:url value="/suggestions"/>" class="btn btn-sm btn-outline-secondary mt-4"><i class="fas fa-sync" title="Reset"></i> Reset</a> 
-              <button type="submit" onclick="$('#suggestionForm').attr('method', 'post').attr('action', '<c:url value="/suggest"/>').submit();" class="btn btn-sm btn-outline-primary mt-4"><i class="fas fa-concierge-bell" title="Suggest"></i> Suggest </button> 
-              <button type="submit" onclick="$('#suggestionForm').attr('action', '<c:url value="/suggestions"/>').submit();" class="btn btn-sm btn-outline-secondary mt-4"><i class="fas fa-search" title="Search"></i> Search</button> 
+              <div class="btn-group" role="group" aria-label="Basic example">
+               <a href="<c:url value="/suggestions"/>" class="btn btn-sm btn-outline-secondary mt-4"><i class="fas fa-sync" title="Reset"></i> </a> 
+                <button type="submit" onclick="$('#suggestionForm').attr('action', '<c:url value="/suggestions"/>').submit();" class="btn btn-sm btn-outline-secondary mt-4"><i class="fas fa-search" title="Search"></i> </button> 
+              </div>
+              <button type="submit" onclick="$('#suggestionForm').attr('method', 'post').attr('action', '<c:url value="/suggest"/>').submit();" class="btn btn-sm btn-outline-primary mt-4 font-weight-bold"><i class="fas fa-concierge-bell" title="Suggest"></i> Suggest </button>
             </div>
           </div>
         </form>
